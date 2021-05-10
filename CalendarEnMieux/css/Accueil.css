@@ -1,5 +1,5 @@
 .u-section-1 {
-  background-image: url("images/-min.jpg");
+  background-image: url("../images/-min.jpg");
   background-position: 50% 50%;
 }
 
@@ -110,7 +110,7 @@
     font-size: 3.75rem;
   }
 }.u-section-2 {
-  background-image: url("images/wedd-min.jpg");
+  background-image: url("../images/wedd-min.jpg");
   background-position: 50% 50%;
 }
 

@@ -2,9 +2,9 @@
 /**
  * Author   : keanu.trosset@cpnv.ch
  * Project  : TPI CalendarEnMieux
- * Created  : 06.03.2021
+ * Created  : 06.05.2021
  *
- * Git source  : [https://github.com/keanutrosset/HotelplanEnMieux]
+ * Git source  : [https://github.com/keanutrosset/CalendarEnMieux]
  *
  */
 
