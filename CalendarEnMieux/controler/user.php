@@ -91,10 +91,11 @@
  function register($registerRequest)
  {
      //If a register request was submitted
-     if (isset($registerRequest['inputEmail']) && isset($registerRequest['inputUserPsw']) && isset($registerRequest['inputUserPswRepeat']))
+     if (isset($registerRequest['inputPseudo']) && isset($registerRequest['inputEmail']) && isset($registerRequest['inputUserPsw']) && isset($registerRequest['inputUserPswRepeat']))
      {
 
          //Extract register parameters
+         $pseudo = $registerRequest['inputPseudo'];
          $email = $registerRequest['inputEmail'];
          $userPsw = $registerRequest['inputUserPsw'];
          $userPswRepeat = $registerRequest['inputUserPswRepeat'];
@@ -104,7 +105,7 @@
              try
              {
                  require_once "model/usersManagement.php";
-                 $userId = registerNewAccount($email, $userPsw);
+                 $userId = registerNewAccount($email, $pseudo, $userPsw);
              }
              catch (ErrorDbAccess $e)
              {
@@ -114,7 +115,7 @@
 
              if ($userId)
              {
-                 createSession($email, $userId);
+                 createSession($email, $pseudo, $userId);
 
                  $_GET['registerError'] = false;
                  $action = "home";
@@ -143,4 +144,45 @@
          require "view/register.php";
          exit();
      }
+ }
+
+ function profil()
+ {
+   if(isset($_SESSION["userId"]))
+   {
+
+       require "view/profil.php";
+   }
+   else
+   {
+       $_POST["loginMessage"] = 5;
+       require "view/login.php";
+   }
+ }
+
+ /**
+  * This function is designed to create a new user session
+  * Also store user's rents if there is any in the database
+  * @param $email : Email address to store in session
+  * @param $userId : User unique id address to store in session
+  */
+ function createSession($email, $pseudo, $userId)
+ {
+     $_SESSION['email'] = $email;
+     $_SESSION['pseudo'] = $pseudo;
+     $_SESSION['userId'] = $userId;
+ }
+
+
+ /**
+  * This function is designed to manage logout request
+  */
+ function logout()
+ {
+     $_SESSION = array();
+     session_destroy();
+
+     $action = "home";
+     home();
+     exit();
  }

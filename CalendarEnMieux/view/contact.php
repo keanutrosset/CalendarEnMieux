@@ -80,7 +80,7 @@
 </g></svg></span>
                 <h5 class="u-text u-text-8">Email</h5>
                 <p class="u-text u-text-9">
-                  <a href="mailto:hello@theme.com" class="u-active-none u-border-1 u-border-palette-2-base u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-2-base u-btn-2">Keanu.trosset@cpnv.ch</a>
+                  <a href="mailto:keanu.trosset@cpnv.ch" class="u-active-none u-border-1 u-border-palette-2-base u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-2-base u-btn-2">Keanu.trosset@cpnv.ch</a>
                 </p>
               </div>
             </div>

@@ -34,11 +34,14 @@
               <a href="#" class="u-btn u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-4-base u-btn-1">Submit</a>
               <input type="submit" value="submit" class="u-form-control-hidden">
             </div>
-            <div class="u-form-send-message u-form-send-success"> Thank you! Your message has been sent. </div>
-            <div class="u-form-send-error u-form-send-message"> Unable to send your message. Please fix errors then try again. </div>
+            <div class="u-form-send-message u-form-send-success"> Vous vous êtes connecter avec succès. </div>
+            <div class="u-form-send-error u-form-send-message"> Vous n'avez pas reussi à vous connecter, veuillez ressayer. </div>
             <input type="hidden" value="" name="recaptchaResponse">
           </form>
         </div>
+        <?php if (@$_GET['loginError'] == true) :?>
+            <h5><span style="color:red">Login refusé</span></h5>
+        <?php endif ?>
         <p class="u-text u-text-palette-4-dark-2 u-text-1">Veuillez entrez vos information de connection pour pouvoir acceder à la suite</p>
         <p class="u-text u-text-palette-4-dark-2 u-text-2">
           <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-4-dark-2 u-btn-2" href="?action=register" data-page-id="276759126">Vous n'avez pas de compte?</a>
