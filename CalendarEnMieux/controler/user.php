@@ -20,7 +20,8 @@
    require "view/contact.php";
    exit();
  }
- function myCalendar($userID){
+
+ function myCalendar(){
    if(isset($_SESSION["userId"]))
    {
        require "view/myCalendar.php";
@@ -30,6 +31,28 @@
        $_POST["loginMessage"] = 0;
        require "view/login.php";
    }
+ }
+
+ function changeDate(){
+
+   $allEvents = require "model/eventsManagement.php";
+
+   require "view/gestionOfCalendar.php";
+
+
+   header("location:myCalendar.php?$lien");
+   exit();
+ }
+
+ function seeAnEvent(){
+
+   $allEvents = require "model/eventsManagement.php";
+
+   require "view/gestionOfCalendar.php";
+
+
+   header("location:myCalendar.php?$lien");
+   exit();
  }
 
  /**
@@ -49,7 +72,7 @@
          {
              require_once "model/usersManagement.php";
              //Check if user/psw are matching with the database
-             $userId = isLoginCorrect($email, $userPsw);
+             $userLog = isLoginCorrect($email, $userPsw);
          }
          catch (ErrorDbAccess $e)
          {
@@ -57,9 +80,9 @@
              exit();
          }
 
-         if ($userId)
+         if ($userLog)
          {
-             createSession($email, $userId);
+             createSession($email, $userLog["pseudo"], $userLog["ID"]);
 
              $_GET['loginError'] = false;
              header("Location:?action=".$redirect);

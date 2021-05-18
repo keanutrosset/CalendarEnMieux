@@ -24,35 +24,39 @@
         <h3 class="u-align-center u-text u-text-palette-3-light-1 u-text-1">Register</h3>
         <div class="u-form u-form-1">
 
-          <form action="?action=register" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" style="padding: 10px" name="form">
+          <form action="?action=register" method="POST" style="padding: 10px" name="form">
             <div class="u-form-group u-form-name u-form-group-1">
               <label for="name-f13a" class="u-form-control-hidden u-label">pseudo</label>
               <input type="text" placeholder="Entrez votre pseudo" id="name-f13a" maxlength="12" name="inputPseudo" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" autofocus="autofocus">
             </div>
+            <br>
             <div class="u-form-email u-form-group">
               <label for="email-3b9a" class="u-form-control-hidden u-label">Email</label>
               <input type="email" placeholder="Entrez une adresse email valide" id="email-3b9a" name="inputEmail" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>
+            <br>
             <div class="u-form-group u-form-name">
               <label for="name-3b9a" class="u-form-control-hidden u-label">Password</label>
               <input type="password" placeholder="Entrez votre mot de passe" id="name-3b9a" name="inputUserPsw" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>
+            <br>
             <div class="u-form-group u-form-group-4">
               <label for="text-6355" class="u-form-control-hidden u-label">Password Repeat</label>
               <input type="password" placeholder="Confirmez votre mot de passe" id="text-6355" name="inputUserPswRepeat" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>
             <div class="u-align-center u-form-group u-form-submit">
               <a class="u-btn u-btn-submit u-button-style u-hover-palette-3-light-1 u-palette-3-base u-btn-1">Submit</a>
-              <input type="submit" value="submit" class="u-form-control-hidden">
+              <input type="submit" class="u-form-control-hidden">
             </div>
-            <div class="u-form-send-message u-form-send-success"> Vous vous êtes connecter avec succès. </div>
+            <!--<div class="u-form-send-message u-form-send-success"> Vous vous êtes connecter avec succès. </div>
             <div class="u-form-send-error u-form-send-message"> Vous n'avez pas reussi à vous connecter, veuillez ressayer. </div>
-            <input type="hidden" value="" name="recaptchaResponse">
+            <input type="hidden" value="" name="recaptchaResponse">-->
           </form>
         </div>
+        <div class="u-align-center u-input u-input-rectangle u-form-send-error u-form-send-message" style="width:15rem; margin:auto;visibility:<?= @$_GET['registerError'] ? 'visible' : 'hidden' ?>"> Ce compte existe déjà ou le mot de passe n'est pas le même, veuillez ressayer. </div>
+        <a class="u-align-center u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-3-base u-btn-3" style="margin:auto" href="?action=login" >Vous avez deja un compte?</a>
         <p class="u-text u-text-palette-3-dark-2 u-text-2">Veuillez entrez vos information de connection pour pouvoir acceder à la suite</p>
-        <p class="u-text u-text-palette-3-dark-2 u-text-3">
-          <a class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-3-base u-btn-2" href="?action=login" data-page-id="59250005">Vous avez deja un compte?</a>
+
         </p>
       </div>
     </section>

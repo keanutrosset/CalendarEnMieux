@@ -20,17 +20,17 @@ function isLoginCorrect($email, $userPsw)
    $result = false;
 
    $strSeparator = '\'';
-   $loginQuery = 'SELECT password, ID FROM users WHERE email = '.$strSeparator.$email.$strSeparator;
+   $loginQuery = 'SELECT password, ID, pseudo FROM users WHERE email = '.$strSeparator.$email.$strSeparator;
 
    require_once 'model/dbConnector.php';
    $queryResult = executeQuerySelect($loginQuery);
 
    if (count($queryResult) == 1)
    {
-       $passwordHash = $queryResult[0]['passwordHash'];
+       $passwordHash = $queryResult[0]['password'];
        if(password_verify($userPsw, $passwordHash))
        {
-           $result = $queryResult[0]["ID"];
+           $result = $queryResult[0];
        }
        else
        {

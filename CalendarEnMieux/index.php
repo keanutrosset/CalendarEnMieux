@@ -44,6 +44,18 @@ if (isset($_GET['action']))
           profil();
           break;
 
+     case 'myCalendar' :
+          myCalendar();
+          break;
+
+     case 'changeDate' :
+          changeDate();
+          break;
+
+     case 'seeAnEvent' :
+          seeAnEvent();
+          break;
+
       case 'contact':
           contact();
           break;

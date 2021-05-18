@@ -59,6 +59,7 @@
 
 <?php if(isset($_SESSION["userId"])):?>
     </li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="?action=profil" style="padding: 10px 20px;">Profil</a>
+    </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="?action=myCalendar" style="padding: 10px 20px;">Mon Calendrier</a>
 <?php else:?>
     </li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="?action=login" style="padding: 10px 20px;">Se connecter / S'enregistrer</a></li>
 <?php endif?>
@@ -74,6 +75,7 @@
 
                 <?php if(isset($_SESSION["userId"])):?>
                 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="?action=profil" style="padding: 10px 20px;">Profil</a>
+                </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="?action=myCalendar" style="padding: 10px 20px;">Mon Calendrier</a>
                 <?php else:?>
                 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="?action=login" style="padding: 10px 20px;">Se connecter / S'enregistrer</a>
                 <?php endif?>

@@ -69,7 +69,7 @@ function openDBConnexion()
     $hostname = 'localhost';
     $port = 3306;
     $charset = 'utf8';
-    $dbName = 'agenda';
+    $dbName = 'calenmieux21_cam';
     $userName = 'calenmieux21_cam';
     $userPwd = 'CalenMieux-21';
     $dsn = $sqlDriver . ':host=' . $hostname . ';dbname=' . $dbName . ';port=' . $port . ';charset=' . $charset;
