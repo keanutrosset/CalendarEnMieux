@@ -45,15 +45,15 @@ if (isset($_GET['action']))
           break;
 
      case 'myCalendar' :
-          myCalendar();
+          myCalendar($_POST);
           break;
 
      case 'changeDate' :
-          changeDate();
+          changeDate($_POST);
           break;
 
      case 'seeAnEvent' :
-          seeAnEvent();
+          seeAnEvent($_GET);
           break;
 
       case 'contact':

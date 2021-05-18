@@ -30,8 +30,8 @@
             </div>
             <br>
             <div class="u-form-group u-form-name">
-              <label for="name-3b9a" class="u-form-control-hidden u-label">Name</label>
-              <input type="text" placeholder="Entrez votre mot de passe" id="name-3b9a" name="inputUserPsw" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
+              <label for="name-3b9a" class="u-form-control-hidden u-label">Password</label>
+              <input type="password" placeholder="Entrez votre mot de passe" id="name-3b9a" name="inputUserPsw" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="">
             </div>
             <div class="u-align-center u-form-group u-form-submit">
               <a class="u-btn u-btn-submit u-button-style u-hover-palette-4-light-1 u-palette-4-base u-btn-1">Submit</a>

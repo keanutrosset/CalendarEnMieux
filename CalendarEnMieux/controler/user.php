@@ -21,9 +21,13 @@
    exit();
  }
 
- function myCalendar(){
+ function myCalendar($newDate){
    if(isset($_SESSION["userId"]))
    {
+       require "model/eventsManagement.php";
+
+       $alldataAgenda = showData();
+
        require "view/myCalendar.php";
    }
    else
@@ -33,25 +37,20 @@
    }
  }
 
- function changeDate(){
+ function changeDate($newDate){
 
-   $allEvents = require "model/eventsManagement.php";
-
-   require "view/gestionOfCalendar.php";
-
-
-   header("location:myCalendar.php?$lien");
+   require "view/myCalendar.php";
    exit();
  }
 
- function seeAnEvent(){
+ function seeAnEvent($date){
 
-   $allEvents = require "model/eventsManagement.php";
+   require "model/eventsManagement.php";
 
+   $allEvents = showData();
    require "view/gestionOfCalendar.php";
 
-
-   header("location:myCalendar.php?$lien");
+   //header("location:?gestionOfCalendar.php$Date");
    exit();
  }
 

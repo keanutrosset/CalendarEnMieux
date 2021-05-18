@@ -8,14 +8,28 @@
  *
  */
 
-function showData($fullDate){
+function showData(){
 
-    $fullDate=$_GET['dt'];
+    $result = false;
+
+    $dateAgenda = 'SELECT date FROM events';
+
+    require_once 'model/dbConnector.php';
+
+    $result = executeQuerySelect($dateAgenda);
+
+    return $result;
+
+
+    /*$fullDate=$_GET['dt'];
 
     $sql="SELECT * FROM events WHERE date ='$fullDate'";
    	require_once 'model/dbConnector.php';
 
    	$req = executeQuerySelect($sql);
+
+    return $req;
+
    	if(isset($req)){
    		foreach($req as $data)
    		{
@@ -30,7 +44,7 @@ function showData($fullDate){
    		$mod=0;
    		$loc="";
    		$eve="";
-    }
+    }*/
 }
 
 function addEvent($eventToAdd){
@@ -49,7 +63,7 @@ function addEvent($eventToAdd){
 
     $req = executeQuerySelect($sql);
     return $req;
-    
+
 //  }
 }
 function deleteEvent($eventToDelete){

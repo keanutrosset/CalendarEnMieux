@@ -10,10 +10,9 @@
 
   $title = "CalendarEnMieux - Details de la date";
 
-	// tampon de flux stocké en mémoire
+	// tampon de flux stocké en  mémoire
 	ob_start();
 
-	include('model/dbConnector.php');
 	if(isset($_POST['sup']))
 	{
 		$id=$_POST['upd'];
