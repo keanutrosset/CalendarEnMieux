@@ -9,10 +9,54 @@
  */
 
 
-function addAnEvent($eventToAdd){
+function addAnEvent($eventToAdd, $userID){
 
-  if(isset($_POST['lieu']))
+  if(isset($eventToAdd['event']) && isset($eventToAdd['lieu']) && isset($eventToAdd['startTime']) && isset($eventToAdd['endTime']) && isset($eventToAdd['type']))
   {
+    require_once "model/eventsManagement.php";
+    $result = addEvent($eventToAdd, $userID);
 
+    if($result){
+      header("Location:?action=myCalendar");
+    }
+    else{
+      header("Location:?action=home");
+    }
+  }
+  else{
+    header("Location:?action=home");
+  }
+}
+
+function updateAnEvent($eventToUpdate, $userID){
+  if(isset($eventToAdd['event']) && isset($eventToAdd['lieu']) && isset($eventToAdd['startTime']) && isset($eventToAdd['endTime']) && isset($eventToAdd['type']))
+  {
+    require_once "model/eventsManagement.php";
+    $result = updateEvent($eventToAdd, $userID);
+
+    if($result){
+      header("Location:?action=myCalendar");
+    }
+    else{
+      header("Location:?action=home");
+    }
+  }
+  else{
+    header("Location:?action=home");
+  }
+}
+
+function deleteAnEvent($eventToDelete){
+  if(isset($_POST['sup']))
+  {
+    require_once "model/eventsManagement.php";
+    $result = updateEvent($eventToAdd, $userID);
+
+    if($result){
+      header("Location:?action=myCalendar");
+    }
+    else{
+      header("Location:?action=home");
+    }
   }
 }

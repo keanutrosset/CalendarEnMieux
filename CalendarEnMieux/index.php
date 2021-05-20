@@ -57,7 +57,7 @@ if (isset($_GET['action']))
           break;
 
      case 'addAnEvent' :
-          addAnEvent($_POST);
+          addAnEvent($_POST, $_SESSION["userId"]);
           break;
 
       case 'contact':

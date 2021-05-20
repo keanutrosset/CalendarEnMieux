@@ -65,85 +65,99 @@
 <link href="css/Calendar.css" rel="stylesheet" type="text/css" />
 
 <h1 class="u-align-center u-custom-font u-font-lato u-text u-text-palette-5-dark-2 u-text-1">Gestion de la date : <?php echo $fullDate;?></h1>
-<?php
-	$sql="SELECT * FROM agenda WHERE dt='$fullDate'";
-	require_once 'model/dbConnector.php';
 
-	if(isset($allEvents)){
-		foreach($allEvents as $data)
-		{
-			$mod=1;
-			$id=$data['id'];
-			$loc=$data['event'];
-			$eve=$data['lieu'];
-		}
-	}
-
-	else
-	{
-		$mod=0;
-		$loc="";
-		$eve="";
-	}
-?>
 <br>
 <center>
-<form name="gr" action="?action=addAnEvent" method="post"><input type='hidden' id='date' name='date' value='<?php echo $d; ?>'>
+  <?php
+  if(isset($allEvents)){
+    $mod=1;
+  }
+    else
+    {
+    $mod=0;
+    $loc="";
+    $eve="";
+    }
+
+    foreach($allEvents as $data)
+    {
+
+
+
+  ?>
+<form name="gr" action="?action=addAnEvent" method="post"><input type='hidden' id='date' name='date' value='<?php echo $fullDate;?>'>
 <table >
 
         <tr height="50px"><td width="150px">
             <strong>Nom de l'évènement</strong></td><td>
-            <label for="email-3b9a" class="u-form-control-hidden u-label">Evenement</label>
-            <input type="text" name="event" value="<?php echo $event;?>" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" autofocus="autofocus">
+            <label for="event" class="u-form-control-hidden u-label">Evenement</label>
+            <input type="text" name="event" value="<?php echo $data["name"];?>" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" autofocus="autofocus">
         </td></tr>
 
         <br>
 
         <tr height="50px"><td>
               <strong>Lieu</strong></td><td>
-              <label class="u-form-control-hidden u-label">Lieu</label>
-              <input type="text" name="lieu" value="<?php echo $lieu;?>" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" autofocus="autofocus">
+              <label for="lieu" class="u-form-control-hidden u-label">Lieu</label>
+              <input type="text" name="lieu" value="<?php echo $data["place"];?>" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" autofocus="autofocus">
           </td></tr>
 
           <tr height="50px"><td>
                 <strong>Heure de début</strong></td><td>
-                <label class="u-form-control-hidden u-label">Heure de début</label>
-                <input type="time" name="startTime" value="<?php echo $startTime;?>" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" autofocus="autofocus">
+                <label for="startTime" class="u-form-control-hidden u-label">Heure de début</label>
+                <input type="time" name="startTime" value="<?php echo $data["start time"];?>" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" autofocus="autofocus">
             </td></tr>
           <tr height="50px"><td>
                 <strong>Heure de fin</strong></td><td>
-                <label class="u-form-control-hidden u-label">Heure de fin</label>
-                <input type="time" name="startTime" value="<?php echo $endTime;?>" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" autofocus="autofocus">
+                <label for="endTime" class="u-form-control-hidden u-label">Heure de fin</label>
+                <input type="time" name="endTime" value="<?php echo $data["end time"];?>" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required="" autofocus="autofocus">
             </td></tr>
 
           <tr height="50px"><td>
               <strong>Type</strong></td><td>
-              <select name="type" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?php echo $type;?>" required="" autofocus="autofocus" >
+              <select name="type" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?php echo $data["type"];?>" required="" autofocus="autofocus" >
                 <option value="" disabled selected value>--Please choose an option--</option>
-                <option value="none">Aucun</option>
-                <option value="private">Privé</option>
-                <option value="professionel">Professionel</option>
-                <option value="home">Maison</option>
-                <option value="school">Ecole</option>
-                <option value="family">famille</option>
-                <option value="other">Divers</option>
+                <option value="0">Aucun</option>
+                <option value="1">Privé</option>
+                <option value="2">Professionel</option>
+                <option value="3">Maison</option>
+                <option value="4">Ecole</option>
+                <option value="5">famille</option>
+                <option value="6">Divers</option>
               </select>
             </td></tr>
+            <tr height="50px"><td>
+                <strong>Récurrence</strong></td><td>
+                  <input type="radio" id="Aucun" name="recurrence[]" value="0" checked required="" autofocus="autofocus">
+                  <label for="Aucun" >Aucun</label>
+
+                  <input type="radio" id="day" name="recurrence[]" value="1" required="" autofocus="autofocus">
+                  <label for="day" >Jours</label>
+
+                  <input type="radio" id="month" name="recurrence[]" value="2" required="" autofocus="autofocus">
+                  <label for="month" >Mois</label>
+
+                  <input type="radio" id="year" name="recurrence[]" value="3" required="" autofocus="autofocus">
+                  <label for="year" >Année</label>
+                </button>
+              </td></tr>
 
 
         <tr height="50px">
-        <?php
-			if($mod==0)
-				echo "<td colspan='2'><input type='submit' class='u-btn u-align-center' value='Ajouter'></td>";
-			else
-			{
-				echo "<td colspan='2'><input type='submit' value='Modifier'>&nbsp;&nbsp;<input type='button' value='Supprimer' onclick='supp()'>";
-				echo "<input type='hidden' id='sup' name='sup' value='0'><input type='hidden' name='upd' value='$id'></td>";
-			}
-		?>
+          <?php
+      			if($mod==0)
+      				echo "<td colspan='2'><input type='submit' class='u-btn u-align-center' value='Ajouter'></td>";
+      			else
+      			{
+      				echo "<td colspan='2'><input type='submit' class='u-btn u-align-left' value='Modifier'><input type='button' class='u-btn u-align-right' value='Supprimer' onclick='supp()'>";
+      				echo "<input type='hidden' id='sup' name='sup' value='0'><input type='hidden' name='upd' class='u-btn' value='$id'></td>";
+      			}
+  		    ?>
         </tr>
 </table>
 </form>
+<?php } ?>
+
 </center>
 <br>
 <?php

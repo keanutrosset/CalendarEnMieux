@@ -8,87 +8,99 @@
  *
  */
 
-function showData(){
+function showData($date){
 
     $result = false;
 
-    $dateAgenda = 'SELECT date FROM events';
+    $strSeparator = '\'';
+
+    $dateAgenda = 'SELECT date FROM events WHERE date = '.$strSeparator.$date.$strSeparator;
 
     require_once 'model/dbConnector.php';
 
     $result = executeQuerySelect($dateAgenda);
 
     return $result;
+}
+
+function selectAllEvents($date){
 
 
-    /*$fullDate=$_GET['dt'];
-
-    $sql="SELECT * FROM events WHERE date ='$fullDate'";
+    $selectAllEventsQuery="SELECT * FROM events WHERE date ='$date'";
    	require_once 'model/dbConnector.php';
 
-   	$req = executeQuerySelect($sql);
+   	$result = executeQuerySelect($selectAllEventsQuery);
 
-    return $req;
-
-   	if(isset($req)){
-   		foreach($req as $data)
-   		{
-   			$mod=1;
-   			$id=$data['id'];
-   			$loc=$data['event'];
-   			$eve=$data['lieu'];
-   		}}
-
-   	else
-   	{
-   		$mod=0;
-   		$loc="";
-   		$eve="";
-    }*/
+    return $result;
 }
 
-function addEvent($eventToAdd){
 
-    $date=$eventToDelete['date'];
-    $lieu=$eventToDelete['lieu'];
-    $event=$eventToDelete['event'];
 
-    $sql="INSERT into events (date,lieu,event) values('$date','$lieu','$event')";
+function addEvent($eventToAdd, $userID){
+
+    $date = $eventToAdd['date'];
+    $place = $eventToAdd['lieu'];
+    $event = $eventToAdd['event'];
+    $startTime = $eventToAdd['startTime'];
+    $endTime = $eventToAdd['endTime'];
+    $type = $eventToAdd['type'];
+    $recurrence = $eventToAdd['recurrence'];
+
+    $i=0;
+    if(isset($recurrence[$i])){
+      $recurrence = $recurrence[$i];
+    }
+    else{
+      $i++;
+    }
+
+    $addEventQuery = 'INSERT INTO events (`name`, `place`, `date`, `start time`, `end time`, `type`, `recurrence`, `FKusers`) VALUES (:name, :place, :date, :startTime, :endTime, :type, :recurrence, :userID)';
+    $addEventData = array(":name" => $event, ":place" => $place, ":date" => $date, ":startTime" => $startTime, ":endTime" => $endTime, ":type" => $type, ":recurrence" => $recurrence, ":userID" => $userID);
+
+    print_r($addEventQuery);
+    print_r($addEventData);
+
     require_once 'model/dbConnector.php';
 
-    $req = executeQuerySelect($sql);
-    return $req;
+    $result = executeQueryInsert($addEventQuery,$addEventData);
+
+    print_r($result);
+
+    return $result;
 
 }
-function deleteEvent($eventToDelete){
-//  if(isset($_POST['sup']))
-  //{
-    $id=$eventToDelete['upd'];
-    $date=$eventToDelete['date'];
-    $d_l=explode('-',$date);
-    $mois=$d_l[1];
-    $anne=$d_l[0];
-    $lien="&annee=".$anne."&mois=".$mois;
-    $lieu=$eventToDelete['lieu'];
-    $event=$eventToDelete['event'];
 
+function deleteEvent($eventToDelete){
 
     $suppQuery='DELETE from events where ID=:id';
     $suppData= array(":id" => $id);
     $req = executeQueryInsert($suppQuery, $suppData);
 
     return $req;
-
-  //}
 }
 
 function updateEvent($eventToModify){
-//  else{
-    $updateQuery='UPDATE events SET `lieu` = :lieu , `event` = :event WHERE id = :id';
-    $updateData= array(":lieu" => $event, ":event" => $lieu, ":id" => $id);
-    $req = executeQueryInsert($updateQuery, $updateData);
 
-    return $req;
-  //}
-  header("location:myCalendar.php?$lien");
+    $date = $eventToAdd['date'];
+    $place = $eventToAdd['lieu'];
+    $event = $eventToAdd['event'];
+    $startTime = $eventToAdd['startTime'];
+    $endTime = $eventToAdd['endTime'];
+    $type = $eventToAdd['type'];
+    $recurrence = $eventToAdd['recurrence'];
+
+    $i=0;
+    if(isset($recurrence[$i])){
+      $recurrence = $recurrence[$i];
+    }
+    else{
+      $i++;
+    }
+
+    $updateEventQuery = 'UPDATE events SET `name` = :name, `place` = :place, `date` = :date, `start time` = :startTime, `end time` = :endTime, `type` = :type, `recurrence` = :recurrence, `FKusers` = :userID';
+    $updateEventData = array(":name" => $event, ":place" => $place, ":date" => $date, ":startTime" => $startTime, ":endTime" => $endTime, ":type" => $type, ":recurrence" => $recurrence, ":userID" => $userID);
+
+    $result = executeQueryInsert($updateEventQuery, $updateEventData);
+
+    return $result;
 }

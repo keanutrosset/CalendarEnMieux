@@ -26,7 +26,7 @@
    {
        require "model/eventsManagement.php";
 
-       $alldataAgenda = showData();
+       $alldataAgenda = showData($newDate);
 
        require "view/myCalendar.php";
    }
@@ -47,11 +47,14 @@
 
    require "model/eventsManagement.php";
 
-   $allEvents = showData();
-   require "view/gestionOfCalendar.php";
+   $allEvents = selectAllEvents($date["dt"]);
 
-   //header("location:?gestionOfCalendar.php$Date");
-   exit();
+   print_r($date);
+   print_r($allEvents);
+
+       require "view/gestionOfCalendar.php";
+       //header("location:?gestionOfCalendar.php$Date");
+       exit();
  }
 
  /**
@@ -127,7 +130,7 @@
              try
              {
                  require_once "model/usersManagement.php";
-                 $userId = registerNewAccount($email, $pseudo, $userPsw);
+                 $userID = registerNewAccount($email, $pseudo, $userPsw);
              }
              catch (ErrorDbAccess $e)
              {
@@ -135,9 +138,9 @@
                  exit();
              }
 
-             if ($userId)
+             if ($userID)
              {
-                 createSession($email, $pseudo, $userId);
+                 createSession($email, $pseudo, $userID);
 
                  $_GET['registerError'] = false;
                  $action = "home";
@@ -186,13 +189,13 @@
   * This function is designed to create a new user session
   * Also store user's rents if there is any in the database
   * @param $email : Email address to store in session
-  * @param $userId : User unique id address to store in session
+  * @param $userID : User unique id address to store in session
   */
- function createSession($email, $pseudo, $userId)
+ function createSession($email, $pseudo, $userID)
  {
      $_SESSION['email'] = $email;
      $_SESSION['pseudo'] = $pseudo;
-     $_SESSION['userId'] = $userId;
+     $_SESSION['userId'] = $userID;
  }
 
 
