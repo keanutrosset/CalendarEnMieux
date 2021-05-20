@@ -48,35 +48,29 @@ function showData(){
 }
 
 function addEvent($eventToAdd){
-  //if(isset($_POST['lieu']))
-  //{
-    $dat=$_POST['dd'];
-    $l=$_POST['lieu'];
-    $e=$_POST['event'];
-    $d_l=explode('-',$dat);
-    $mois=$d_l[1];
-    $anne=$d_l[0];
-    $lien="&annee=".$anne."&mois=".$mois;
 
-    $sql="INSERT into events (dt,lieu,event) values('$dat','$l','$e')";
+    $date=$eventToDelete['date'];
+    $lieu=$eventToDelete['lieu'];
+    $event=$eventToDelete['event'];
+
+    $sql="INSERT into events (date,lieu,event) values('$date','$lieu','$event')";
     require_once 'model/dbConnector.php';
 
     $req = executeQuerySelect($sql);
     return $req;
 
-//  }
 }
 function deleteEvent($eventToDelete){
 //  if(isset($_POST['sup']))
   //{
-    $id=$_POST['upd'];
-    $dat=$_POST['dd'];
-    $d_l=explode('-',$dat);
+    $id=$eventToDelete['upd'];
+    $date=$eventToDelete['date'];
+    $d_l=explode('-',$date);
     $mois=$d_l[1];
     $anne=$d_l[0];
     $lien="&annee=".$anne."&mois=".$mois;
-    $l=$_POST['lieu'];
-    $e=$_POST['event'];
+    $lieu=$eventToDelete['lieu'];
+    $event=$eventToDelete['event'];
 
 
     $suppQuery='DELETE from events where ID=:id';
@@ -91,7 +85,7 @@ function deleteEvent($eventToDelete){
 function updateEvent($eventToModify){
 //  else{
     $updateQuery='UPDATE events SET `lieu` = :lieu , `event` = :event WHERE id = :id';
-    $updateData= array(":lieu" => $e, ":event" => $l, ":id" => $id);
+    $updateData= array(":lieu" => $event, ":event" => $lieu, ":id" => $id);
     $req = executeQueryInsert($updateQuery, $updateData);
 
     return $req;

@@ -56,6 +56,10 @@ if (isset($_GET['action']))
           seeAnEvent($_GET);
           break;
 
+     case 'addAnEvent' :
+          addAnEvent($_POST);
+          break;
+
       case 'contact':
           contact();
           break;

@@ -7,3 +7,12 @@
  * Git source  : [https://github.com/keanutrosset/CalendarEnMieux]
  *
  */
+
+
+function addAnEvent($eventToAdd){
+
+  if(isset($_POST['lieu']))
+  {
+
+  }
+}

@@ -162,49 +162,48 @@ ob_start();
                   		$mm="0".$mois;
                   	else
                   		$mm=$mois;
-                  	$da=$annee."-".$mm."-".$jj;
-                  	$lien=$lienRedirect;
-                  	$lien.="&dt=".$da;
-                  	echo "<td";
-                  	if(in_array($da, $list_spe))
-                  	{
-                  		echo " class='special' onmouseover='over(this,1,2)'";
-                  		if($clic==1||$clic==2)
-                  			echo " onclick='go_lien(\"$lien\",this)' ";
-                  	}
-                  	else if(in_array($f, $list_fer))
-                  	{
-                  		echo " class='ferier' onmouseover='over(this,2,2)'";
-                  		if($clic==1)
-                  			echo " onclick='go_lien(\"$lien\",this)' ";
-                  	}
-                  	else
-                  	{
-                  		echo" onmouseover='over(this,0,2)' ";
-                  		if($clic==1)
-                  			echo " onclick='go_lien(\"$lien\",this)' ";
-                  	}
+                    	$da=$annee."-".$mm."-".$jj;
+                    	$lien=$lienRedirect;
+                    	$lien.="&dt=".$da;
+                    	echo "<td";
+                    	if(in_array($da, $list_spe))
+                    	{
+                    		echo " class='special' onmouseover='over(this,1,2)'";
+                    		if($clic==1||$clic==2)
+                    			echo " onclick='go_lien(\"$lien\",this)' ";
+                    	}
+                    	else if(in_array($f, $list_fer))
+                    	{
+                    		echo " class='ferier' onmouseover='over(this,2,2)'";
+                    		if($clic==1)
+                    			echo " onclick='go_lien(\"$lien\",this)' ";
+                    	}
+                    	else
+                    	{
+                    		echo" onmouseover='over(this,0,2)' ";
+                    		if($clic==1)
+                    			echo " onclick='go_lien(\"$lien\",this)' ";
+                    	}
+                      //affiche le numero du jour
+                      if($i == $day && $mois == date("n") && $annee == date("Y")){
+                        echo"style='background-Color:yellow' onmouseout='over(this,0,3,$i)'>$i</td>";
+                      }
+                      else{
+                        echo" onmouseout='over(this,0,1,$i)'>$i</td>";
+                      }
 
-                    //affiche le numero du jour
-                    if($i == $day){
-                      echo"style='background-Color:yellow' onmouseout='over(this,0,3,$i)'>$i</td>";
+                    	$case++;
+                    	if($case%7==0)
+                    		echo "</tr><tr>";
+
                     }
-                    else{
-                      echo" onmouseout='over(this,0,1,$i)'>$i</td>";
-                    }
-
-                  	$case++;
-                  	if($case%7==0)
-                  		echo "</tr><tr>";
-
-                  }
-                  if($lastDay!=7)
-                  	for($i=$lastDay;$i<7;$i++)
-                  	{
-                  		echo '<td class="desactive">&nbsp;</td>';
-                  	}
-                  ?></tr>
-                  </table>
+                    if($lastDay!=7)
+                    	for($i=$lastDay;$i<7;$i++)
+                    	{
+                    		echo '<td class="desactive">&nbsp;</td>';
+                    	}
+                    ?></tr>
+                    </table>
                   <?php
                   	if(isset($newDate['mod']))
                   		echo "<div id='notif'>Calendrier modifié</div>";
