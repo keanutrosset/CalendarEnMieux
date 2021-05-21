@@ -79,13 +79,15 @@
     $eve="";
     }
 
-    foreach($allEvents as $data)
+    array_unshift($allEvents,array("id" => "", "name" => "", "place" => "", "date" => "", "start time" => "", "end time" => "", "type" => "", "recurrence" => ""));
+
+    foreach($allEvents as $num=>$data)
     {
 
 
 
   ?>
-<form name="gr" action="?action=addAnEvent" method="post"><input type='hidden' id='date' name='date' value='<?php echo $fullDate;?>'>
+<form name="gestionEvent" id="gestionEvent" action="?action=audEvent" method="post"><input type='hidden' id='date' name='date' value='<?php echo $fullDate;?>'>
 <table >
 
         <tr height="50px"><td width="150px">
@@ -145,12 +147,14 @@
 
         <tr height="50px">
           <?php
-      			if($mod==0)
-      				echo "<td colspan='2'><input type='submit' class='u-btn u-align-center' value='Ajouter'></td>";
+      			if($num==0){
+      				echo "<td colspan='2'><input type='submit' class='u-btn u-align-center' value='Ajouter'>";
+              echo "<input type='hidden' id='add' name='add' value='0'></td>";
+            }
       			else
       			{
-      				echo "<td colspan='2'><input type='submit' class='u-btn u-align-left' value='Modifier'><input type='button' class='u-btn u-align-right' value='Supprimer' onclick='supp()'>";
-      				echo "<input type='hidden' id='sup' name='sup' value='0'><input type='hidden' name='upd' class='u-btn' value='$id'></td>";
+      				echo "<td colspan='2'><input type='submit' class='u-btn u-align-left' value='Modifier'><input type='button' class='u-btn u-align-right' value='Supprimer' onclick='supp(".$data['ID'].")'>";
+      				echo "<input type='hidden' id='sup' name='sup'><input type='hidden' name='upd' class='u-btn' value='".$data['ID']."'></td>";
       			}
   		    ?>
         </tr>
@@ -166,12 +170,12 @@
 
 
 <script type="text/javascript">
-function supp()
+function supp(id)
 {
 	if(confirm("Etes vous sur de supprimer cette Date")==true)
 	{
-		document.getElementById('sup').value=1;
-		gr.submit();
+		document.getElementById('sup').value=id;
+		document.getElementById('gestionEvent').submit();
 	}
 }
 </script>

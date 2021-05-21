@@ -9,6 +9,29 @@
  */
 
 
+function audEvent($event,$userID){
+  if(isset($event["add"])){
+    addAnEvent($event,$userID);
+  }
+  elseif(isset($event["upd"])){
+    updateAnEvent($event,$userID);
+    /*print_r($event);
+    print_r($userID);
+    print_r("pas bien");*/
+  }
+  elseif(isset($event["sup"])){
+    deleteAnEvent($event,$userID);
+    /*print_r($event);
+    print_r($userID);
+    print_r("bien");*/
+  }
+
+  /*print_r("vraiment pas bien");
+  print_r($event);
+  print_r($userID);*/
+}
+
+
 function addAnEvent($eventToAdd, $userID){
 
   if(isset($eventToAdd['event']) && isset($eventToAdd['lieu']) && isset($eventToAdd['startTime']) && isset($eventToAdd['endTime']) && isset($eventToAdd['type']))
@@ -29,10 +52,10 @@ function addAnEvent($eventToAdd, $userID){
 }
 
 function updateAnEvent($eventToUpdate, $userID){
-  if(isset($eventToAdd['event']) && isset($eventToAdd['lieu']) && isset($eventToAdd['startTime']) && isset($eventToAdd['endTime']) && isset($eventToAdd['type']))
+  if(isset($eventToUpdate['event']) && isset($eventToUpdate['lieu']) && isset($eventToUpdate['startTime']) && isset($eventToUpdate['endTime']) && isset($eventToUpdate['type']))
   {
     require_once "model/eventsManagement.php";
-    $result = updateEvent($eventToAdd, $userID);
+    $result = updateEvent($eventToUpdate, $userID);
 
     if($result){
       header("Location:?action=myCalendar");
@@ -46,17 +69,16 @@ function updateAnEvent($eventToUpdate, $userID){
   }
 }
 
-function deleteAnEvent($eventToDelete){
-  if(isset($_POST['sup']))
-  {
-    require_once "model/eventsManagement.php";
-    $result = updateEvent($eventToAdd, $userID);
+function deleteAnEvent($eventToDelete, $userID){
 
-    if($result){
-      header("Location:?action=myCalendar");
-    }
-    else{
-      header("Location:?action=home");
-    }
+  require_once "model/eventsManagement.php";
+  $result = deleteEvent($eventToDelete, $userID);
+
+  if($result){
+    header("Location:?action=myCalendar");
   }
+  else{
+    header("Location:?action=home");
+  }
+  header("Location:?action=home");
 }

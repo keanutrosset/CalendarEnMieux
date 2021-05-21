@@ -56,8 +56,16 @@ if (isset($_GET['action']))
           seeAnEvent($_GET);
           break;
 
+     case 'audEvent' :
+          audEvent($_POST,$_SESSION["userID"]);
+          break;
+
      case 'addAnEvent' :
-          addAnEvent($_POST, $_SESSION["userId"]);
+          addAnEvent($_POST, $_SESSION["userID"]);
+          break;
+
+     case 'updateAnEvent' :
+          updateAnEvent($_POST, $_SESSION["userID"]);
           break;
 
       case 'contact':

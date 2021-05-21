@@ -22,7 +22,7 @@
  }
 
  function myCalendar($newDate){
-   if(isset($_SESSION["userId"]))
+   if(isset($_SESSION["userID"]))
    {
        require "model/eventsManagement.php";
 
@@ -49,8 +49,6 @@
 
    $allEvents = selectAllEvents($date["dt"]);
 
-   print_r($date);
-   print_r($allEvents);
 
        require "view/gestionOfCalendar.php";
        //header("location:?gestionOfCalendar.php$Date");
@@ -173,7 +171,7 @@
 
  function profil()
  {
-   if(isset($_SESSION["userId"]))
+   if(isset($_SESSION["userID"]))
    {
 
        require "view/profil.php";
@@ -195,7 +193,7 @@
  {
      $_SESSION['email'] = $email;
      $_SESSION['pseudo'] = $pseudo;
-     $_SESSION['userId'] = $userID;
+     $_SESSION['userID'] = $userID;
  }
 
 
