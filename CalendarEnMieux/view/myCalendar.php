@@ -87,13 +87,13 @@ ob_start();
                 <center>
                 <form name="date" method="POST" action="?action=myCalendar">
                 <br>
-                <div class="u-custom-menu u-nav-container">
+                <!--<div class="u-custom-menu u-nav-container">
                   <ul class="u-nav u-unstyled u-nav-2">
                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" style="padding: 10px 20px;">Jours</a></li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" style="padding: 10px 20px;">Semaine</a></li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" style="padding: 10px 20px;">Mois</a></li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" style="padding: 10px 20px;">Année</a></li>
-                  </li></ul>
+                  </li></ul>-->
                 <button onClick="today()" class="u-btn u-align-left">Aujourd'hui</button>
 
                   <!--This fonction is here when the user change the month of the calendar-->
