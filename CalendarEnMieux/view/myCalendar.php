@@ -60,7 +60,7 @@ ob_start();
                 {
                 	$mois=$newDate['mois'];
                 	//$day=$newDate['jour'];
-                  //$day=date("l"); = EX thuesday
+                  //$day=date("l"); = EX: thuesday
                   $day=date("j");
                 	$annee=$newDate['annee'];
                 }
@@ -82,32 +82,18 @@ ob_start();
                 $testhours=date("d", mktime(0, 0, 0, $mois,$l_day , $annee));
 
                 $titre=$mois_fr[$mois]." : ".$annee;
-
-                //$mois_fr = Array("", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août","Septembre", "Octobre", "Novembre", "Décembre");
-                /*if(isset($newDate['mois']) && isset($newDate['annee']))
-                {
-                	$mois=$newDate['mois'];
-                	$annee=$newDate['annee'];
-                }
-                else
-                {
-                	$mois=date("n");
-                	$annee=date("Y");
-                }
-                $s=strlen($mois)-1;
-                if($mois<10)
-                	$mois=$mois[$s];
-                $ccl2=array($col1,$col2,$col3);
-                $l_day=date("t",mktime(0,0,0,$mois,1,$annee));
-                $firstDay=date("N", mktime(0, 0, 0, $mois,1 , $annee));
-                $lastDay=date("N", mktime(0, 0, 0, $mois,$l_day , $annee));
-                $titre=$mois_fr[$mois]." : ".$annee;*/
-                //echo $l_day;
                 ?>
 
                 <center>
-                <form name="dt" method="POST" action="?action=myCalendar">
+                <form name="date" method="POST" action="?action=myCalendar">
                 <br>
+                <div class="u-custom-menu u-nav-container">
+                  <ul class="u-nav u-unstyled u-nav-2">
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" style="padding: 10px 20px;">Jours</a></li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" style="padding: 10px 20px;">Semaine</a></li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" style="padding: 10px 20px;">Mois</a></li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#" style="padding: 10px 20px;">Année</a></li>
+                  </li></ul>
                 <button onClick="today()" class="u-btn u-align-left">Aujourd'hui</button>
 
                   <!--This fonction is here when the user change the month of the calendar-->
@@ -164,7 +150,7 @@ ob_start();
                   		$mm=$mois;
                     	$da=$annee."-".$mm."-".$jj;
                     	$lien=$lienRedirect;
-                    	$lien.="&dt=".$da;
+                    	$lien.="&date=".$da;
                     	echo "<td";
                     	if(in_array($da, $list_spe))
                     	{
@@ -215,13 +201,13 @@ ob_start();
   <script type="text/javascript">
   function change()
   {
-  	document.dt.submit("location:?action=myCalendar");
+  	document.date.submit("location:?action=myCalendar");
   }
   function today()
   {
-    document.dt["mois"].value = <?=date("n")?>;
-    document.dt["annee"].value = <?=date("Y")?>;
-  	document.dt.submit("location:?action=myCalendar");
+    document.date["mois"].value = <?=date("n")?>;
+    document.date["annee"].value = <?=date("Y")?>;
+  	document.date.submit("location:?action=myCalendar");
   }
   	function over(this_,a,t,numberDay){
   	<?php

@@ -48,8 +48,8 @@
         <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
           <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
             <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
-              <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use></svg>
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><symbol id="menu-hamburger" viewBox="0 0 16 16" style="width: 16px; height: 16px;"><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
+              <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#calendarHome"></use></svg>
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><symbol id="calendarHome" viewBox="0 0 16 16" style="width: 16px; height: 16px;"><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
 </symbol>
 </defs></svg>
             </a>
@@ -57,7 +57,7 @@
           <div class="u-custom-menu u-nav-container">
             <ul class="u-nav u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="?action=home" style="padding: 10px 20px;">Accueil</a>
 
-<?php if(isset($_SESSION["userId"])):?>
+<?php if(isset($_SESSION["userID"])):?>
     </li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="?action=profil" style="padding: 10px 20px;">Profil</a>
     </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="?action=myCalendar" style="padding: 10px 20px;">Mon Calendrier</a>
 <?php else:?>
@@ -73,7 +73,7 @@
                 <div class="u-menu-close"></div>
                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="?action=home" style="padding: 10px 20px;">Accueil</a>
 
-                <?php if(isset($_SESSION["userId"])):?>
+                <?php if(isset($_SESSION["userID"])):?>
                 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="?action=profil" style="padding: 10px 20px;">Profil</a>
                 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="?action=myCalendar" style="padding: 10px 20px;">Mon Calendrier</a>
                 <?php else:?>

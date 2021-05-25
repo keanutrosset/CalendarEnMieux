@@ -70,10 +70,6 @@ function deleteEvent($eventToDelete, $userID){
     $suppQuery='DELETE from events where ID = :id AND FKusers = :idUser';
     $suppData= array(":id" => $eventToDelete['sup'], ":idUser" => $userID);
 
-    print_r($suppQuery);
-    print_r($suppData);
-    print_r($eventToDelete);
-
     require_once 'model/dbConnector.php';
     $result = executeQueryInsert($suppQuery, $suppData);
 
@@ -104,10 +100,6 @@ function updateEvent($eventToModify,$userID){
     $updateEventQuery = 'UPDATE events SET `name` = :name, `place` = :place, `date` = :date, `start time` = :startTime, `end time` = :endTime, `type` = :type, `recurrence` = :recurrence, `FKusers` = :userID
     WHERE ID = '.$strSeparator.$IDOfEvent.$strSeparator.' AND FKusers = '.$strSeparator.$userID.$strSeparator;
     $updateEventData = array(":name" => $event, ":place" => $place, ":date" => $date, ":startTime" => $startTime, ":endTime" => $endTime, ":type" => $type, ":recurrence" => $recurrence, ":userID" => $userID);
-
-    print_r($updateEventQuery);
-    print_r($updateEventData);
-    print_r($eventToModify);
 
 
     require_once 'model/dbConnector.php';

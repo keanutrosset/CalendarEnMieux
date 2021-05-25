@@ -13,46 +13,39 @@ function audEvent($event,$userID){
   if(isset($event["add"])){
     addAnEvent($event,$userID);
   }
-  elseif(isset($event["upd"])){
+  elseif($event["upd"] != ""){
     updateAnEvent($event,$userID);
-    /*print_r($event);
-    print_r($userID);
-    print_r("pas bien");*/
   }
-  elseif(isset($event["sup"])){
+  elseif($event["sup"] != ""){
     deleteAnEvent($event,$userID);
-    /*print_r($event);
-    print_r($userID);
-    print_r("bien");*/
   }
-
-  /*print_r("vraiment pas bien");
-  print_r($event);
-  print_r($userID);*/
 }
 
 
 function addAnEvent($eventToAdd, $userID){
 
-  if(isset($eventToAdd['event']) && isset($eventToAdd['lieu']) && isset($eventToAdd['startTime']) && isset($eventToAdd['endTime']) && isset($eventToAdd['type']))
+  if(isset($eventToAdd['event']) && isset($eventToAdd['lieu']) && isset($eventToAdd['startTime']) && isset($eventToAdd['endTime']) && isset($eventToAdd['type']) && $eventToAdd['startTime'] < $eventToAdd['endTime'])
   {
     require_once "model/eventsManagement.php";
     $result = addEvent($eventToAdd, $userID);
-
     if($result){
       header("Location:?action=myCalendar");
     }
     else{
-      header("Location:?action=home");
+      $_GET["eventsError"] = 3;
+      require_once "controler/user.php";
+      seeAnEvent($eventToAdd);
     }
   }
   else{
-    header("Location:?action=home");
+    $_GET["eventsError"] = 1;
+    require_once "controler/user.php";
+    seeAnEvent($eventToAdd);
   }
 }
 
 function updateAnEvent($eventToUpdate, $userID){
-  if(isset($eventToUpdate['event']) && isset($eventToUpdate['lieu']) && isset($eventToUpdate['startTime']) && isset($eventToUpdate['endTime']) && isset($eventToUpdate['type']))
+  if(isset($eventToUpdate['event']) && isset($eventToUpdate['lieu']) && isset($eventToUpdate['startTime']) && isset($eventToUpdate['endTime']) && isset($eventToUpdate['type']) && $eventToAdd['startTime'] < $eventToAdd['endTime'])
   {
     require_once "model/eventsManagement.php";
     $result = updateEvent($eventToUpdate, $userID);
@@ -61,11 +54,15 @@ function updateAnEvent($eventToUpdate, $userID){
       header("Location:?action=myCalendar");
     }
     else{
-      header("Location:?action=home");
+      $_GET["eventsError"] = 3;
+      require_once "controler/user.php";
+      seeAnEvent($eventToUpdate);
     }
   }
   else{
-    header("Location:?action=home");
+    $_GET["eventsError"] = 1;
+    require_once "controler/user.php";
+    seeAnEvent($eventToUpdate);
   }
 }
 
@@ -78,7 +75,8 @@ function deleteAnEvent($eventToDelete, $userID){
     header("Location:?action=myCalendar");
   }
   else{
-    header("Location:?action=home");
+    $_GET["eventsError"] = 3;
+    require_once "controler/user.php";
+    seeAnEvent($eventToDelete);
   }
-  header("Location:?action=home");
 }

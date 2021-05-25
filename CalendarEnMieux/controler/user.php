@@ -47,12 +47,10 @@
 
    require "model/eventsManagement.php";
 
-   $allEvents = selectAllEvents($date["dt"]);
+   $allEvents = selectAllEvents($date["date"]);
 
-
-       require "view/gestionOfCalendar.php";
-       //header("location:?gestionOfCalendar.php$Date");
-       exit();
+   require "view/gestionOfCalendar.php";
+   //header("location:?gestionOfCalendar.php$Date");
  }
 
  /**

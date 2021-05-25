@@ -12,62 +12,26 @@
 
 	// tampon de flux stocké en  mémoire
 	ob_start();
-
-	if(isset($_POST['sup']))
-	{
-		$id=$_POST['upd'];
-		$dat=$_POST['dd'];
-
-		$d_l=explode('-',$dat);
-
-		$mois=$d_l[1];
-		$anne=$d_l[0];
-
-		$lien="&annee=".$anne."&mois=".$mois;
-
-		$l=$_POST['lieu'];
-		$e=$_POST['event'];
-
-		// to delete an event
-		if($_POST['sup']==1){
-			$suppQuery='DELETE from agenda where id=:id';
-			$suppData= array(":id" => $id);
-			$allEvents = executeQueryInsert($suppQuery, $suppData);
-		}
-
-		//to update an event
-		else{
-			$updateQuery='UPDATE agenda SET `lieu` = :lieu , `event` = :event WHERE id = :id';
-			$updateData= array(":lieu" => $e, ":event" => $l, ":id" => $id);
-			$allEvents = executeQueryInsert($updateQuery, $updateData);
-		}
-		header("location:myCalendar.php?$lien");
-	}
-
-//to add an event
-	else if(isset($_POST['lieu']))
-	{
-		$dat=$_POST['dd'];
-		$l=$_POST['lieu'];
-		$e=$_POST['event'];
-		$d_l=explode('-',$dat);
-		$mois=$d_l[1];
-		$anne=$d_l[0];
-		$lien="&annee=".$anne."&mois=".$mois;
-	}
-	else
-	{
-		$fullDate=$_GET['dt'];
-
 ?>
 
 <link rel="stylesheet" href="css/Profil.css" media="screen">
 <link href="css/Calendar.css" rel="stylesheet" type="text/css" />
 
-<h1 class="u-align-center u-custom-font u-font-lato u-text u-text-palette-5-dark-2 u-text-1">Gestion de la date : <?php echo $fullDate;?></h1>
+<h1 class="u-align-center u-custom-font u-font-lato u-text u-text-palette-5-dark-2 u-text-1">Gestion de la date : <?php echo $date["date"];?></h1>
+
+
 
 <br>
 <center>
+  <?php if (@$_GET['eventsError'] == 1) :?>
+  <h5><span style="color:red">L'heure ne correspond pas, ou alors il n'y a pas tout les champs de rempli.</span></h5>
+  <?php endif ?>
+  <?php if (@$_GET['eventsError'] == 2) :?>
+  <h5><span style="color:red">Il n'y a pas tout les champs de rempli.</span></h5>
+  <?php endif ?>
+  <?php if (@$_GET['eventsError'] == 3) :?>
+  <h5><span style="color:red">Il y a eu une erreur dans le processus.</span></h5>
+  <?php endif ?>
   <?php
   if(isset($allEvents)){
     $mod=1;
@@ -79,7 +43,7 @@
     $eve="";
     }
 
-    array_unshift($allEvents,array("id" => "", "name" => "", "place" => "", "date" => "", "start time" => "", "end time" => "", "type" => "", "recurrence" => ""));
+    array_unshift($allEvents,array("ID" => "", "name" => "", "place" => "", "date" => "", "start time" => "", "end time" => "", "type" => "", "recurrence" => ""));
 
     foreach($allEvents as $num=>$data)
     {
@@ -87,7 +51,7 @@
 
 
   ?>
-<form name="gestionEvent" id="gestionEvent" action="?action=audEvent" method="post"><input type='hidden' id='date' name='date' value='<?php echo $fullDate;?>'>
+<form name="gestionEvent<?=$data['ID']?>" id="gestionEvent<?=$data['ID']?>" action="?action=audEvent" method="post"><input type='hidden' id='date' name='date' value='<?php echo $date["date"];?>'>
 <table >
 
         <tr height="50px"><td width="150px">
@@ -119,28 +83,28 @@
               <strong>Type</strong></td><td>
               <select name="type" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?php echo $data["type"];?>" required="" autofocus="autofocus" >
                 <option value="" disabled selected value>--Please choose an option--</option>
-                <option value="0">Aucun</option>
-                <option value="1">Privé</option>
-                <option value="2">Professionel</option>
-                <option value="3">Maison</option>
-                <option value="4">Ecole</option>
-                <option value="5">famille</option>
-                <option value="6">Divers</option>
+                <option value="0" <?= ($data["type"] == "0") ? "selected=True" : "" ?>>Aucun</option>
+                <option value="1" <?= ($data["type"] == "1") ? "selected=True" : "" ?>>Privé</option>
+                <option value="2" <?= ($data["type"] == "2") ? "selected=True" : "" ?>>Professionel</option>
+                <option value="3" <?= ($data["type"] == "3") ? "selected=True" : "" ?>>Maison</option>
+                <option value="4" <?= ($data["type"] == "4") ? "selected=True" : "" ?>>Ecole</option>
+                <option value="5" <?= ($data["type"] == "5") ? "selected=True" : "" ?>>famille</option>
+                <option value="6" <?= ($data["type"] == "6") ? "selected=True" : "" ?>>Divers</option>
               </select>
             </td></tr>
             <tr height="50px"><td>
                 <strong>Récurrence</strong></td><td>
-                  <input type="radio" id="Aucun" name="recurrence[]" value="0" checked required="" autofocus="autofocus">
-                  <label for="Aucun" >Aucun</label>
+                  <input type="radio" id="Aucun<?=$data['ID']?>" name="recurrence" value="0" <?= ($data["recurrence"] == "0") ? "checked=True" : "" ?> required="" autofocus="autofocus">
+                  <label for="Aucun<?=$data['ID']?>" >Aucun</label>
 
-                  <input type="radio" id="day" name="recurrence[]" value="1" required="" autofocus="autofocus">
-                  <label for="day" >Jours</label>
+                  <input type="radio" id="day<?=$data['ID']?>" name="recurrence" value="1" <?= ($data["recurrence"] == "1") ? "checked=True" : "" ?> required="" autofocus="autofocus">
+                  <label for="day<?=$data['ID']?>" >Jours</label>
 
-                  <input type="radio" id="month" name="recurrence[]" value="2" required="" autofocus="autofocus">
-                  <label for="month" >Mois</label>
+                  <input type="radio" id="month<?=$data['ID']?>" name="recurrence" value="2" <?= ($data["recurrence"] == "2") ? "checked=True" : "" ?> required="" autofocus="autofocus">
+                  <label for="month<?=$data['ID']?>" >Mois</label>
 
-                  <input type="radio" id="year" name="recurrence[]" value="3" required="" autofocus="autofocus">
-                  <label for="year" >Année</label>
+                  <input type="radio" id="year<?=$data['ID']?>" name="recurrence" value="3" <?= ($data["recurrence"] == "3") ? "checked=True" : "" ?> required="" autofocus="autofocus">
+                  <label for="year<?=$data['ID']?>" >Année</label>
                 </button>
               </td></tr>
 
@@ -153,8 +117,8 @@
             }
       			else
       			{
-      				echo "<td colspan='2'><input type='submit' class='u-btn u-align-left' value='Modifier'><input type='button' class='u-btn u-align-right' value='Supprimer' onclick='supp(".$data['ID'].")'>";
-      				echo "<input type='hidden' id='sup' name='sup'><input type='hidden' name='upd' class='u-btn' value='".$data['ID']."'></td>";
+      				echo "<td colspan='2'><input type='button' onclick='upda(".$data['ID'].")' class='u-btn u-align-left' value='Modifier'><input type='button' class='u-btn u-align-right' value='Supprimer' onclick='supp(".$data['ID'].")'>";
+      				echo "<input type='hidden' id='sup".$data['ID']."' value='' name='sup'><input type='hidden' id='upd".$data['ID']."' name='upd' class='u-btn' value=''></td>";
       			}
   		    ?>
         </tr>
@@ -164,9 +128,6 @@
 
 </center>
 <br>
-<?php
-}
-?>
 
 
 <script type="text/javascript">
@@ -174,9 +135,14 @@ function supp(id)
 {
 	if(confirm("Etes vous sur de supprimer cette Date")==true)
 	{
-		document.getElementById('sup').value=id;
-		document.getElementById('gestionEvent').submit();
+		document.getElementById('sup'+id).value=id;
+		document.getElementById('gestionEvent'+id).submit();
 	}
+}
+function upda(id)
+{
+  document.getElementById('upd'+id).value=id;
+  document.getElementById('gestionEvent'+id).submit();
 }
 </script>
 
