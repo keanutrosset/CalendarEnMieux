@@ -21,12 +21,20 @@
    exit();
  }
 
- function myCalendar($newDate){
+ function myCalendar(){
    if(isset($_SESSION["userID"]))
    {
+       $newDate=date("n");
+       $mois=date("m");
+       $day=date("j");
+       $annee=date("Y");
+       $da=$annee."-".$mois."-".$day;
+
+
+
        require "model/eventsManagement.php";
 
-       $alldataAgenda = showData($newDate);
+       $alldataAgenda = showData($da);
 
        require "view/myCalendar.php";
    }

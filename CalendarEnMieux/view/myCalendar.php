@@ -12,6 +12,8 @@
 
  // tampon de flux stocké en mémoire
 ob_start();
+ // va etre utile uniquement pour le popup
+date_default_timezone_set("Europe/Zurich");
  ?>
 
  <link rel="stylesheet" href="css/Profil.css" media="screen">
@@ -28,13 +30,48 @@ ob_start();
                 <?php
                 $list_fer=array(7);//Liste pour les jours ferié; EX: $list_fer=array(7,1)==>tous les dimanches et les Lundi seront des jours fériers
 
-
                 $counter=0;
-                //foreach($data = $req)//$data=mysql_fetch_array($req))
+
+                //TimeStamp de l'heure de debut de l'event
+                $startTime = $alldataAgenda[1]["start time"];
+                $start = new \DateTime("{$startTime}");
+                $startTime = $start -> getTimeStamp();
+
+                $startTime15Min = $startTime - 900;
+                print_r($startTime);
+                print_r("   ");
+                print_r($startTime15Min);
+                print_r("   ");
+
+                //TimeStamp de l'heure de fin de l'event
+                $endTime = $alldataAgenda[1]["end time"];
+                $end = new \DateTime("{$endTime}");
+                $endTime = $end -> getTimeStamp();
+
+                print_r($endTime);
+                print_r("   ");
+
+                $inEvent = $endTime - $startTime;
+
+                //TimeStamp de l'heure actuel
+                $thisTime = date("G:i:s");
+                $now = new \DateTime("{$thisTime}");
+                $thisTime = $now -> getTimeStamp();
+                print_r($thisTime);
+
                 foreach($alldataAgenda as $data)
                 {
                 	$list_spe[$counter]=$data;
                 	$counter++;
+                  if($thisTime - $startTime15Min <= 900){
+                    echo"<script>popupBefore(".$data['name'].")</script>";
+                    print_r("bien ouej");
+                  }
+                  elseif($thisTime - $startTime <= $inEvent)
+                  {
+                    echo"<script>popupAfter(".$data['name'].")</script>";
+                    print_r("in time");
+                  }
                 }
                 if($counter==0)
                 	$list_spe[0]="";
@@ -209,7 +246,8 @@ ob_start();
     document.date["annee"].value = <?=date("Y")?>;
   	document.date.submit("location:?action=myCalendar");
   }
-  	function over(this_,a,t,numberDay){
+  function over(this_,a,t,numberDay)
+  {
   	<?php
   	 echo "var c2=['$ccl2[0]','$ccl2[1]','$ccl2[2]','$ccl2[3]'];";
   	?>
@@ -231,6 +269,14 @@ ob_start();
   {
   	over(this_,0,1);
   	top.document.location=a;
+  }
+  function popupBefore(eventName)
+  {
+    alert("Vous avez un evenement qui va commencer tout bientot: "+eventName);
+  }
+  function popupAfter(eventName)
+  {
+    alert("Vous avez un evenement en cours: "+eventName);
   }
   </script>
 

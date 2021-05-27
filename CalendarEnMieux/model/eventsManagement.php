@@ -14,7 +14,7 @@ function showData($date){
 
     $strSeparator = '\'';
 
-    $dateAgenda = 'SELECT date FROM events WHERE date = '.$strSeparator.$date.$strSeparator;
+    $dateAgenda = 'SELECT date, `start time`, `end time`, name FROM events WHERE date = '.$strSeparator.$date.$strSeparator;
 
     require_once 'model/dbConnector.php';
 
