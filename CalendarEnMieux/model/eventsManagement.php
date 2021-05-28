@@ -33,6 +33,17 @@ function selectAllEvents($date){
 
     return $result;
 }
+function selectAllRecurrence($date){
+
+    $selectAllRecurenceQuery="SELECT * FROM (SELECT ID, name, place, `start time`, `end time`,`type`,recurrence FROM events ) AS events
+    right JOIN `event-recurrence` ON events.ID = `event-recurrence`.FKevents WHERE date = '$date'";
+
+   	require_once 'model/dbConnector.php';
+
+   	$result = executeQuerySelect($selectAllRecurenceQuery);
+
+    return $result;
+}
 
 
 
@@ -60,6 +71,57 @@ function addEvent($eventToAdd, $userID){
     require_once 'model/dbConnector.php';
 
     $result = executeQueryInsert($addEventQuery,$addEventData);
+
+    $strSeparator = '\'';
+
+    //$idEventQuery = 'SELECT ID FROM events WHERE date = '.$strSeparator.$date.$strSeparator.'AND name = '.$strSeparator.$event.$strSeparator;
+    $idEventQuery = 'SELECT MAX(ID) as ID FROM events';
+
+    $idEvent = executeQuerySelect($idEventQuery)[0]["ID"];
+
+      if($recurrence == 1){
+        //jours
+        for($i=1;$i<=60;$i++){
+
+          $date = new DateTime("{$date}");
+          $date->add(new DateInterval('P1D'));
+          $date -> format('Y-m-d');
+          $date = $date->format('Y-m-d');
+
+          $addEventQuery2 = 'INSERT INTO `event-recurrence` (`date`, `FKevents`) VALUES (:date, :FKevents)';
+          $addEventData2 = array(":date" => $date, ":FKevents" => $idEvent);
+
+          $result = executeQueryInsert($addEventQuery2,$addEventData2);
+        }
+      }
+      //mois
+      if($recurrence == 2){
+        for($i=1;$i<=30;$i++){
+          $date = new DateTime("{$date}");
+          $date->add(new DateInterval('P1M'));
+          $date -> format('Y-m-d');
+          $date = $date->format('Y-m-d');
+
+          $addEventQuery2 = 'INSERT INTO `event-recurrence` (`date`, `FKevents`) VALUES (:date, :FKevents)';
+          $addEventData2 = array(":date" => $date, ":FKevents" => $idEvent);
+
+          $result = executeQueryInsert($addEventQuery2,$addEventData2);
+        }
+      }
+      //année
+      if($recurrence == 3){
+        for($i=1;$i<=10;$i++){
+          $date = new DateTime("{$date}");
+          $date->add(new DateInterval('P1Y'));
+          $date -> format('Y-m-d');
+          $date = $date->format('Y-m-d');
+
+          $addEventQuery2 = 'INSERT INTO `event-recurrence` (`date`, `FKevents`) VALUES (:date, :FKevents)';
+          $addEventData2 = array(":date" => $date, ":FKevents" => $idEvent);
+
+          $result = executeQueryInsert($addEventQuery2,$addEventData2);
+        }
+      }
 
     return $result;
 

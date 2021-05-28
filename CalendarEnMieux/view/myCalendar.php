@@ -32,47 +32,7 @@ date_default_timezone_set("Europe/Zurich");
 
                 $counter=0;
 
-                //TimeStamp de l'heure de debut de l'event
-                $startTime = $alldataAgenda[1]["start time"];
-                $start = new \DateTime("{$startTime}");
-                $startTime = $start -> getTimeStamp();
 
-                $startTime15Min = $startTime - 900;
-                print_r($startTime);
-                print_r("   ");
-                print_r($startTime15Min);
-                print_r("   ");
-
-                //TimeStamp de l'heure de fin de l'event
-                $endTime = $alldataAgenda[1]["end time"];
-                $end = new \DateTime("{$endTime}");
-                $endTime = $end -> getTimeStamp();
-
-                print_r($endTime);
-                print_r("   ");
-
-                $inEvent = $endTime - $startTime;
-
-                //TimeStamp de l'heure actuel
-                $thisTime = date("G:i:s");
-                $now = new \DateTime("{$thisTime}");
-                $thisTime = $now -> getTimeStamp();
-                print_r($thisTime);
-
-                foreach($alldataAgenda as $data)
-                {
-                	$list_spe[$counter]=$data;
-                	$counter++;
-                  if($thisTime - $startTime15Min <= 900){
-                    echo"<script>popupBefore(".$data['name'].")</script>";
-                    print_r("bien ouej");
-                  }
-                  elseif($thisTime - $startTime <= $inEvent)
-                  {
-                    echo"<script>popupAfter(".$data['name'].")</script>";
-                    print_r("in time");
-                  }
-                }
                 if($counter==0)
                 	$list_spe[0]="";
                 //$list_spe=array('1986-10-31','2009-4-12','2009-9-23');//Mettez vos dates des evenements ; NB format(annee-m-j)
@@ -270,14 +230,50 @@ date_default_timezone_set("Europe/Zurich");
   	over(this_,0,1);
   	top.document.location=a;
   }
-  function popupBefore(eventName)
-  {
-    alert("Vous avez un evenement qui va commencer tout bientot: "+eventName);
-  }
-  function popupAfter(eventName)
-  {
-    alert("Vous avez un evenement en cours: "+eventName);
-  }
+  window.onload = function(){
+  //document.getElementsByTagName("body")[0].addEventListener("load", function {
+      <?php
+      $counter = 0;
+      foreach($alldataAgenda as $data)
+      {
+
+        //TimeStamp de l'heure de debut de l'event
+        $startTime = $alldataAgenda[$counter]["start time"];
+        $start = new \DateTime("{$startTime}");
+        $startTime = $start -> getTimeStamp();
+
+        $startTime15Min = $startTime - 900;
+
+        //TimeStamp de l'heure de fin de l'event
+        $endTime = $alldataAgenda[$counter]["end time"];
+        $end = new \DateTime("{$endTime}");
+        $endTime = $end -> getTimeStamp();
+
+
+        $inEvent = $endTime - $startTime;
+
+        //TimeStamp de l'heure actuel
+        $thisTime = date("G:i:s");
+        $now = new \DateTime("{$thisTime}");
+        $thisTime = $now -> getTimeStamp();
+        //print_r($thisTime);
+
+        if($thisTime - $startTime15Min <= 900){
+          echo"alert('Vous avez un evenement qui va commencer tout bientot: ".$data["name"]."'); ";
+          //print_r("bien ouej");
+        }
+        elseif($thisTime - $startTime <= $inEvent)
+        {
+          echo"alert('Vous avez un evenement en cours: ".$data["name"]."'); ";
+          //print_r("in time");
+        }
+        $counter++;
+      }
+      ?>
+
+  //},false);
+}
+
   </script>
 
 

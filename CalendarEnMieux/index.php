@@ -45,7 +45,7 @@ if (isset($_GET['action']))
           break;
 
      case 'myCalendar' :
-          myCalendar();
+          myCalendar($_POST);
           break;
 
      case 'changeDate' :

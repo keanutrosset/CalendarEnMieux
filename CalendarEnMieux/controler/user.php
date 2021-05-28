@@ -21,18 +21,19 @@
    exit();
  }
 
- function myCalendar(){
+ function myCalendar($newDate){
    if(isset($_SESSION["userID"]))
    {
-       $newDate=date("n");
-       $mois=date("m");
+       /*$newDate=date("n");
+       $newMois=date("m");*/
        $day=date("j");
-       $annee=date("Y");
-       $da=$annee."-".$mois."-".$day;
+       //$newannee=date("Y");
+       $da=$newDate["annee"]."-".$newDate["mois"]."-".$day;
 
+       print_r($newDate);
+       print_r($da);
 
-
-       require "model/eventsManagement.php";
+       require_once "model/eventsManagement.php";
 
        $alldataAgenda = showData($da);
 
@@ -47,15 +48,23 @@
 
  function changeDate($newDate){
 
-   require "view/myCalendar.php";
+   require_once "view/myCalendar.php";
    exit();
  }
 
  function seeAnEvent($date){
 
-   require "model/eventsManagement.php";
+   require_once "model/eventsManagement.php";
 
    $allEvents = selectAllEvents($date["date"]);
+
+   $allRecurence = selectAllRecurrence($date["date"]);
+
+   print_r($allRecurence);
+
+   foreach($allRecurence as $recurrence){
+     array_push($allEvents,$recurrence);
+  }
 
    require "view/gestionOfCalendar.php";
    //header("location:?gestionOfCalendar.php$Date");
