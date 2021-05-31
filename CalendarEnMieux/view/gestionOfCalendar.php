@@ -51,7 +51,7 @@
 
 
   ?>
-<form name="gestionEvent<?=$data['ID']?>" id="gestionEvent<?=$data['ID']?>" action="?action=audEvent" method="post"><input type='hidden' id='date' name='date' value='<?php echo $date["date"];?>'>
+<form name="gestionEvent<?=((isset($data["recuID"])) ? $data['recuID'] : $data['ID'])?>" id="gestionEvent<?=((isset($data["recuID"])) ? $data['recuID'] : $data['ID'])?>" action="?action=audEvent" method="post"><input type='hidden' id='date' name='date' value='<?php echo $date["date"];?>'>
 <table >
 
         <tr height="50px"><td width="150px">
@@ -84,12 +84,12 @@
               <select name="type" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="<?php echo $data["type"];?>" required="" autofocus="autofocus" >
                 <option value="" disabled selected value>--Please choose an option--</option>
                 <option value="0" <?= ($data["type"] == "0") ? "selected=True" : "" ?>>Aucun</option>
-                <option value="1" <?= ($data["type"] == "1") ? "selected=True" : "" ?>>Privé</option>
-                <option value="2" <?= ($data["type"] == "2") ? "selected=True" : "" ?>>Professionel</option>
-                <option value="3" <?= ($data["type"] == "3") ? "selected=True" : "" ?>>Maison</option>
-                <option value="4" <?= ($data["type"] == "4") ? "selected=True" : "" ?>>Ecole</option>
-                <option value="5" <?= ($data["type"] == "5") ? "selected=True" : "" ?>>famille</option>
-                <option value="6" <?= ($data["type"] == "6") ? "selected=True" : "" ?>>Divers</option>
+                <option style="background-color:cyan" value="1" <?= ($data["type"] == "1") ? "selected=True" : "" ?>>Privé</option>
+                <option style="background-color:red" value="2" <?= ($data["type"] == "2") ? "selected=True" : "" ?>>Professionel</option>
+                <option style="background-color:green" value="3" <?= ($data["type"] == "3") ? "selected=True" : "" ?>>Maison</option>
+                <option style="background-color:pink" value="4" <?= ($data["type"] == "4") ? "selected=True" : "" ?>>Ecole</option>
+                <option style="background-color:yellow" value="5" <?= ($data["type"] == "5") ? "selected=True" : "" ?>>Famille</option>
+                <option style="background-color:grey" value="6" <?= ($data["type"] == "6") ? "selected=True" : "" ?>>Divers</option>
               </select>
             </td></tr>
             <tr height="50px"><td>
@@ -106,6 +106,8 @@
                   <input type="radio" id="year<?=$data['ID']?>" name="recurrence" value="3" <?= ($data["recurrence"] == "3") ? "checked=True" : "" ?> required="" autofocus="autofocus">
                   <label for="year<?=$data['ID']?>" >Année</label>
                 </button>
+                <input id="qty" type="number" style="width:3em;" step="1" min="0" max="365"
+                name="qty" placeholder="NB" required=""></td>
               </td></tr>
 
 
@@ -117,8 +119,21 @@
             }
       			else
       			{
-      				echo "<td colspan='2'><input type='button' onclick='upda(".$data['ID'].")' class='u-btn u-align-left' value='Modifier'><input type='button' class='u-btn u-align-right' value='Supprimer' onclick='supp(".$data['ID'].")'>";
-      				echo "<input type='hidden' id='sup".$data['ID']."' value='' name='sup'><input type='hidden' id='upd".$data['ID']."' name='upd' class='u-btn' value=''></td>";
+      				echo "<td colspan='4'><input type='button' onclick='upda(".((isset($data["recuID"])) ? $data['recuID'] : $data['ID']).")' class='u-btn u-align-left' value='Modifier'><input type='button' class='u-btn u-align-right' value='Supprimer' onclick='supp(".((isset($data["recuID"])) ? $data['recuID'] : $data['ID']).")'>
+              ";
+              if($data["recurrence"] != 0)
+              {
+                 echo"<input type='button' class='u-btn u-align-right' value='Supprimer avec toutes les recurrences' onclick='suppAll(".$data['ID'].")'>";
+                 echo"<input type='button' class='u-btn u-align-right' value='Supprimer celle ci et les suivantes' onclick='suppAfter(".$data['ID'].")'>";
+               };
+      				echo "<input type='hidden' id='sup".((isset($data["recuID"])) ? $data['recuID'] : $data['ID'])."' value='' name='sup'><input type='hidden' id='upd".$data['ID']."' name='upd' class='u-btn' value=''>
+              ";
+              if($data["recurrence"] != 0)
+              {
+                echo "<input type='hidden' id='supAll".$data['ID']."' value='' name='supAll'>";
+                echo "<input type='hidden' id='supAfter".$data['ID']."' value='' name='supAfter'>";
+              };
+              echo "</td>";
       			}
   		    ?>
         </tr>
@@ -136,6 +151,22 @@ function supp(id)
 	if(confirm("Etes vous sur de supprimer cette Date")==true)
 	{
 		document.getElementById('sup'+id).value=id;
+		document.getElementById('gestionEvent'+id).submit();
+	}
+}
+function suppAll(id)
+{
+	if(confirm("Etes vous sur de supprimer cette Date")==true)
+	{
+		document.getElementById('supAll'+id).value=id;
+		document.getElementById('gestionEvent'+id).submit();
+	}
+}
+function suppAfter(id)
+{
+	if(confirm("Etes vous sur de supprimer cette Date")==true)
+	{
+		document.getElementById('supAfter'+id).value=id;
 		document.getElementById('gestionEvent'+id).submit();
 	}
 }

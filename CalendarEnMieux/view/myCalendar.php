@@ -169,10 +169,10 @@ date_default_timezone_set("Europe/Zurich");
                     	}
                       //affiche le numero du jour
                       if($i == $day && $mois == date("n") && $annee == date("Y")){
-                        echo"style='background-Color:yellow' onmouseout='over(this,0,3,$i)'>$i</td>";
+                        echo"style='background-Color:yellow' onmouseout='over(this,0,3,$i)'>".(in_array($da, array_column($alldata, 'date')) ? ('<u>'.$i.'</u>') : ($i))."</td>";
                       }
                       else{
-                        echo" onmouseout='over(this,0,1,$i)'>$i</td>";
+                        echo" onmouseout='over(this,0,1,$i)'>".(in_array($da, array_column($alldata, 'date')) ? ('<u>'.$i.'</u>') : ($i))."</td>";
                       }
 
                     	$case++;
@@ -258,10 +258,16 @@ date_default_timezone_set("Europe/Zurich");
         $thisTime = $now -> getTimeStamp();
         //print_r($thisTime);
 
-        if($thisTime - $startTime15Min <= 900){
-          echo"alert('Vous avez un evenement qui va commencer tout bientot: ".$data["name"]."'); ";
+        $diffStartTime = $thisTime - $startTime15Min;
+        $diffStartTimeReversed = $startTime - $thisTime;
+        $diffStartTimeReversed = round($reversed / 60)+1;
+
+        //popup 15 min avant
+        if($diffStartTime <= 900){
+          echo"alert('Vous avez un evenement qui va commencer dans environ ".$diffStartTimeReversed." minutes: ".$data["name"]."'); ";
           //print_r("bien ouej");
         }
+        //popup pendant l'event
         elseif($thisTime - $startTime <= $inEvent)
         {
           echo"alert('Vous avez un evenement en cours: ".$data["name"]."'); ";

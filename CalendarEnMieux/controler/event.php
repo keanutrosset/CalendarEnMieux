@@ -16,7 +16,7 @@ function audEvent($event,$userID){
   elseif($event["upd"] != ""){
     updateAnEvent($event,$userID);
   }
-  elseif($event["sup"] != ""){
+  elseif($event["sup"] != "" || $event["supAll"] != "" || $event["supAfter"] != ""){
     deleteAnEvent($event,$userID);
   }
 }
@@ -45,7 +45,7 @@ function addAnEvent($eventToAdd, $userID){
 }
 
 function updateAnEvent($eventToUpdate, $userID){
-  if(isset($eventToUpdate['event']) && isset($eventToUpdate['lieu']) && isset($eventToUpdate['startTime']) && isset($eventToUpdate['endTime']) && isset($eventToUpdate['type']) && $eventToAdd['startTime'] < $eventToAdd['endTime'])
+  if(isset($eventToUpdate['event']) && isset($eventToUpdate['lieu']) && isset($eventToUpdate['startTime']) && isset($eventToUpdate['endTime']) && isset($eventToUpdate['type']) && $eventToUpdate['startTime'] < $eventToUpdate['endTime'])
   {
     require_once "model/eventsManagement.php";
     $result = updateEvent($eventToUpdate, $userID);
@@ -69,6 +69,8 @@ function updateAnEvent($eventToUpdate, $userID){
 function deleteAnEvent($eventToDelete, $userID){
 
   require_once "model/eventsManagement.php";
+
+  print_r($eventToDelete);
   $result = deleteEvent($eventToDelete, $userID);
 
   if($result){

@@ -28,14 +28,25 @@
        $newMois=date("m");*/
        $day=date("j");
        //$newannee=date("Y");
-       $da=$newDate["annee"]."-".$newDate["mois"]."-".$day;
 
-       print_r($newDate);
-       print_r($da);
+       if(isset($newDate['mois']) && isset($newDate['annee']))
+       {
+         $da=$newDate["annee"]."-".$newDate["mois"]."-".$day;
+       }
+       else
+       {
+         $newDate["mois"]=date("n");
+         $newDate["annee"]=date("Y");
+         $da=$newDate["annee"]."-".$newDate["mois"]."-".$day;
+       }
+
+
 
        require_once "model/eventsManagement.php";
 
        $alldataAgenda = showData($da);
+
+       $alldata = showAllData($_SESSION["userID"]);
 
        require "view/myCalendar.php";
    }
@@ -59,8 +70,6 @@
    $allEvents = selectAllEvents($date["date"]);
 
    $allRecurence = selectAllRecurrence($date["date"]);
-
-   print_r($allRecurence);
 
    foreach($allRecurence as $recurrence){
      array_push($allEvents,$recurrence);
