@@ -95,7 +95,7 @@ function addEvent($eventToAdd, $userID){
 
       if($recurrence == 1){
         //jours
-        for($qty;$qty>=0;$qty--){
+        for($qty;$qty>=2;$qty--){
 
           $date = new DateTime("{$date}");
           $date->add(new DateInterval('P1D'));
@@ -110,7 +110,7 @@ function addEvent($eventToAdd, $userID){
       }
       //mois
       if($recurrence == 2){
-        for($qty;$qty>=0;$qty--){
+        for($qty;$qty>=2;$qty--){
           $date = new DateTime("{$date}");
           $date->add(new DateInterval('P1M'));
           $date -> format('Y-m-d');
@@ -124,7 +124,7 @@ function addEvent($eventToAdd, $userID){
       }
       //année
       if($recurrence == 3){
-        for($qty;$qty>=0;$qty--){
+        for($qty;$qty>=2;$qty--){
           $date = new DateTime("{$date}");
           $date->add(new DateInterval('P1Y'));
           $date -> format('Y-m-d');
@@ -242,7 +242,7 @@ function updateEvent($eventToModify,$userID){
 
       if($recurrence == 1){
         //jours
-        for($qty;$qty>=1;$qty--){
+        for($qty;$qty>=2;$qty--){
 
           $date = new DateTime("{$date}");
           $date->add(new DateInterval('P1D'));
@@ -257,7 +257,7 @@ function updateEvent($eventToModify,$userID){
       }
       //mois
       if($recurrence == 2){
-        for($qty;$qty>=1;$qty--){
+        for($qty;$qty>=2;$qty--){
           $date = new DateTime("{$date}");
           $date->add(new DateInterval('P1M'));
           $date -> format('Y-m-d');
@@ -271,7 +271,7 @@ function updateEvent($eventToModify,$userID){
       }
       //année
       if($recurrence == 3){
-        for($qty;$qty>=1;$qty--){
+        for($qty;$qty>=2;$qty--){
           $date = new DateTime("{$date}");
           $date->add(new DateInterval('P1Y'));
           $date -> format('Y-m-d');

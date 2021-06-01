@@ -260,15 +260,15 @@ date_default_timezone_set("Europe/Zurich");
 
         $diffStartTime = $thisTime - $startTime15Min;
         $diffStartTimeReversed = $startTime - $thisTime;
-        $diffStartTimeReversed = round($reversed / 60)+1;
+        $diffStartTimeReversed = round($diffStartTimeReversed / 60)+1;
 
         //popup 15 min avant
-        if($diffStartTime <= 900){
+        if($diffStartTime <= 900 && $diffStartTime >= 0){
           echo"alert('Vous avez un evenement qui va commencer dans environ ".$diffStartTimeReversed." minutes: ".$data["name"]."'); ";
           //print_r("bien ouej");
         }
         //popup pendant l'event
-        elseif($thisTime - $startTime <= $inEvent)
+        elseif($thisTime - $startTime <= $inEvent && $diffStartTime >= 900 && $diffStartTime >= 0)
         {
           echo"alert('Vous avez un evenement en cours: ".$data["name"]."'); ";
           //print_r("in time");

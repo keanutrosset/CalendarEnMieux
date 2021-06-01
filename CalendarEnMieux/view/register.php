@@ -54,8 +54,8 @@
           </form>
         </div>
         <div class="u-align-center u-input u-input-rectangle u-form-send-error u-form-send-message" style="width:15rem; margin:auto;visibility:<?= @$_GET['registerError'] ? 'visible' : 'hidden' ?>"> Ce compte existe déjà ou le mot de passe n'est pas le même, veuillez ressayer. </div>
-        <a class="u-align-center u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-3-base u-btn-3" style="margin:auto" href="?action=login" >Vous avez deja un compte?</a>
-        <p class="u-text u-text-palette-3-dark-2 u-text-2">Veuillez entrez vos information de connection pour pouvoir acceder à la suite</p>
+        <a class="u-align-center u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-palette-3-base u-btn-3" style="margin:auto;margin-top:-30px" href="?action=login" >Vous avez deja un compte?</a>
+        <p class="u-text u-text-palette-3-dark-2 u-text-2" >Veuillez entrez vos information de connection pour pouvoir acceder à la suite</p>
 
         </p>
       </div>
