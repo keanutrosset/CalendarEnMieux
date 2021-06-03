@@ -73,6 +73,7 @@
                 <div class="u-menu-close"></div>
                 <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="?action=home" style="padding: 10px 20px;">Accueil</a>
 
+                <!-- Check if the user is log in -->
                 <?php if(isset($_SESSION["userID"])):?>
                 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="?action=profil" style="padding: 10px 20px;">Profil</a>
                 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="?action=myCalendar" style="padding: 10px 20px;">Mon Calendrier</a>

@@ -8,7 +8,11 @@
  *
  */
 
-
+ /**
+  * This function is designed to separate add, update and delete of the form
+  * @param $event : contain all the information of one event
+  * @param $userID : User unique id address to store in session
+  */
 function audEvent($event,$userID){
   if(isset($event["add"])){
     addAnEvent($event,$userID);
@@ -21,7 +25,11 @@ function audEvent($event,$userID){
   }
 }
 
-
+/**
+ * This function is designed to prepare the event to be added
+ * @param $eventToAdd : Contain all the informations of the event to be added
+ * @param $userID : User unique id address to store in session
+ */
 function addAnEvent($eventToAdd, $userID){
 
   if(isset($eventToAdd['event']) && isset($eventToAdd['lieu']) && isset($eventToAdd['startTime']) && isset($eventToAdd['endTime']) && isset($eventToAdd['type']) && $eventToAdd['startTime'] < $eventToAdd['endTime'])
@@ -44,6 +52,11 @@ function addAnEvent($eventToAdd, $userID){
   }
 }
 
+ /**
+  * This function is designed to prepare the event to be modify
+  * @param $eventToUpdate : Contain all the informations of the event to be modify
+  * @param $userID : User unique id address to store in session
+  */
 function updateAnEvent($eventToUpdate, $userID){
   if(isset($eventToUpdate['event']) && isset($eventToUpdate['lieu']) && isset($eventToUpdate['startTime']) && isset($eventToUpdate['endTime']) && isset($eventToUpdate['type']) && $eventToUpdate['startTime'] < $eventToUpdate['endTime'])
   {
@@ -66,6 +79,11 @@ function updateAnEvent($eventToUpdate, $userID){
   }
 }
 
+/**
+ * This function is designed to prepare the event to be delete
+ * @param $eventToDelete : Contain all the informations of the event to be delete
+ * @param $userID : User unique id address to store in session
+ */
 function deleteAnEvent($eventToDelete, $userID){
 
   require_once "model/eventsManagement.php";

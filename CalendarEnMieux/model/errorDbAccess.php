@@ -8,7 +8,9 @@
  *
  */
 
-
+ /**
+  * This function is designed for the try catch case, this is not used
+  */
 class errorDbAccess extends Exception{
-    
+
 }

@@ -10,9 +10,8 @@
 
 /**
 * This function is designed to verify user's login
-* @param $email
-* @param $userPsw
-* @throws ErrorDbAccess : Raise if database connexion fail
+* @param $email : the email of the user
+* @param $userPsw : the password of the user
 * @return bool : true only if the user and psw match the database. In all other cases will be false
 */
 function isLoginCorrect($email, $userPsw)
@@ -42,11 +41,10 @@ function isLoginCorrect($email, $userPsw)
 
   /**
   * This function is designed to register a new account
-  * @param $email
-  * @param $pseudo
-  * @param $userPsw
-  * @throws ErrorDbAccess : Raise if database connexion fail
-  * @return bool|null
+  * @param $email : the email of the user
+  * @param $pseudo : the pseudo of the user
+  * @param $userPsw : the password of the user
+  * @return bool : true only if the user and psw match the database. In all other cases will be false
   */
   function registerNewAccount($email, $pseudo, $userPsw)
   {

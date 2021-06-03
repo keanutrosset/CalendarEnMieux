@@ -23,6 +23,7 @@
 
 <br>
 <center>
+  <!-- All the different error who can be show -->
   <?php if (@$_GET['eventsError'] == 1) :?>
   <h5><span style="color:red">L'heure ne correspond pas, ou alors il n'y a pas tout les champs de rempli.</span></h5>
   <?php endif ?>
@@ -43,6 +44,7 @@
     $eve="";
     }
 
+    // add the first case of the array empty for the "add new event" situation
     array_unshift($allEvents,array("ID" => "", "name" => "", "place" => "", "date" => "", "start time" => "", "end time" => "", "type" => "", "recurrence" => ""));
 
     foreach($allEvents as $num=>$data)
@@ -107,7 +109,7 @@
                   <label for="year<?=$data['ID']?>" >Année</label>
                 </button>
                 <input id="qty" type="number" style="width:3em;" step="1" min="0" max="365"
-                name="qty" placeholder="NB" required=""></td>
+                name="qty" placeholder="NB" value="0" required=""></td>
               </td></tr>
 
 

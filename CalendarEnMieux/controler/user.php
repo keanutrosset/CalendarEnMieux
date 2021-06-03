@@ -8,6 +8,9 @@
  *
  */
 
+ /**
+  * This function is designed to show the home page
+  */
  function home()
  {
      ob_start();
@@ -15,12 +18,19 @@
      exit();
  }
 
-
+ /**
+  * This function is designed to show the contact page
+  */
  function contact(){
    require "view/contact.php";
    exit();
  }
 
+ /**
+  * This function is designed to show the calendar
+  * Also if the date has been changed on the calendar, we pass here again with the new value
+  * @param $newDate : Contain the month and year sent by the calendar when we change the date
+  */
  function myCalendar($newDate){
    if(isset($_SESSION["userID"]))
    {
@@ -29,6 +39,7 @@
        $day=date("j");
        //$newannee=date("Y");
 
+       // check if he need to show the date of today or another date
        if(isset($newDate['mois']) && isset($newDate['annee']))
        {
          $da=$newDate["annee"]."-".$newDate["mois"]."-".$day;
@@ -39,8 +50,6 @@
          $newDate["annee"]=date("Y");
          $da=$newDate["annee"]."-".$newDate["mois"]."-".$day;
        }
-
-
 
        require_once "model/eventsManagement.php";
 
@@ -63,6 +72,10 @@
    exit();
  }
 
+ /**
+  * This function is designed to see the all the event/recurrence of a date when we click on a date of the calendar
+  * @param $date : contain the date to the format yyyy-mm-dd
+  */
  function seeAnEvent($date){
 
    require_once "model/eventsManagement.php";
@@ -76,12 +89,12 @@
   }
 
    require "view/gestionOfCalendar.php";
-   //header("location:?gestionOfCalendar.php$Date");
  }
 
  /**
   * This function is designed to manage login request
   * @param $loginRequest : contain login fields required to authenticate the user
+  * @param $redirect : contain "home", prevent the user to refresh the page and recreate an account or log in one more time
   */
  function login($loginRequest, $redirect)
  {
@@ -193,6 +206,9 @@
      }
  }
 
+ /**
+  * This function is designed to redirect to the profil page
+  */
  function profil()
  {
    if(isset($_SESSION["userID"]))
@@ -208,9 +224,9 @@
  }
 
  /**
-  * This function is designed to create a new user session
-  * Also store user's rents if there is any in the database
+  * This function is designed to create a new session which will be usefull for everything who need to be log in
   * @param $email : Email address to store in session
+  * @param $pseudo : User pseudo to store in session
   * @param $userID : User unique id address to store in session
   */
  function createSession($email, $pseudo, $userID)
@@ -223,6 +239,7 @@
 
  /**
   * This function is designed to manage logout request
+  * Also destroy the session
   */
  function logout()
  {

@@ -8,6 +8,11 @@
  *
  */
 
+ /**
+  * This function is designed to show all the date on the DB with the start/end time. Usefull for the popup for exemple
+  * @param $date : contain the date to the format yyyy-mm-dd
+  * @return array|null : get the query result (can be null)
+  */
 function showData($date){
 
     $result = false;
@@ -23,11 +28,16 @@ function showData($date){
     return $result;
 }
 
+/**
+ * This function is designed to show all the date on the DB and recurrence of one user. Usefull for see the date where there is an event on myCalendar
+ * @param $userID : contain the user ID of the log user
+ * @return array|null : get the query result (can be null)
+ */
 function showAllData($userID){
   $result = false;
 
-  $alldateAgenda = "(SELECT EVENTS.date FROM EVENTS WHERE FKusers = '$userID') UNION
-  (SELECT `event-recurrence`.date FROM `event-recurrence` INNER JOIN events ON EVENTS.ID = `event-recurrence`.FKevents  WHERE FKusers = '$userID')";
+  $alldateAgenda = "(SELECT events.date FROM events WHERE FKusers = '$userID') UNION
+  (SELECT `event-recurrence`.date FROM `event-recurrence` INNER JOIN events ON events.ID = `event-recurrence`.FKevents  WHERE FKusers = '$userID')";
 
   require_once 'model/dbConnector.php';
 
@@ -36,6 +46,11 @@ function showAllData($userID){
   return $result;
 }
 
+/**
+ * This function is designed to show all the events on one date
+ * @param $date : contain the date to the format yyyy-mm-dd
+ * @return array|null : get the query result (can be null)
+ */
 function selectAllEvents($date){
 
 
@@ -46,6 +61,12 @@ function selectAllEvents($date){
 
     return $result;
 }
+
+/**
+ * This function is designed to show all the recurrence of one date
+ * @param $date : contain the date to the format yyyy-mm-dd
+ * @return array|null : get the query result (can be null)
+ */
 function selectAllRecurrence($date){
 
     $selectAllRecurenceQuery="SELECT events.ID, name, place, `start time`, `end time`,`type`,recurrence, `event-recurrence`.ID AS recuID ,`event-recurrence`.date, FKevents FROM (SELECT ID, name, place, `start time`, `end time`,`type`,recurrence FROM events ) AS events
@@ -59,7 +80,12 @@ function selectAllRecurrence($date){
 }
 
 
-
+/**
+ * This function is designed to add an event in the DB
+ * @param $eventToAdd : contain all the information of the event to be added
+ * @param $userID : contain the user ID of the log user
+ * @return array|null : get the query result (can be null)
+ */
 function addEvent($eventToAdd, $userID){
 
     $date = $eventToAdd['date'];
@@ -141,6 +167,13 @@ function addEvent($eventToAdd, $userID){
 
 }
 
+/**
+ * This function is designed to delete an event in the DB
+ * Also, there is 3 way of delete an event, just one event, event and all recurrence or event and the following recurrence
+ * @param $eventToDelete : contain all the information of the event to be delete
+ * @param $userID : contain the user ID of the log user
+ * @return array|null : get the query result (can be null)
+ */
 function deleteEvent($eventToDelete, $userID){
 
     $date = $eventToDelete["date"];
@@ -154,9 +187,6 @@ function deleteEvent($eventToDelete, $userID){
 
         $suppQuery2='DELETE from `event-recurrence` where ID = :id';
         $suppData2= array(":id" => $eventToDelete['sup']);
-
-        print_r($suppQuery2);
-        print_r($suppData2);
 
         $result = executeQueryInsert($suppQuery2, $suppData2);
 
@@ -196,6 +226,12 @@ function deleteEvent($eventToDelete, $userID){
     return $result;
 }
 
+/**
+ * This function is designed to modify an event in the DB
+ * @param $eventToModify : contain all the information of the event to be modify
+ * @param $userID : contain the user ID of the log user
+ * @return array|null : get the query result (can be null)
+ */
 function updateEvent($eventToModify,$userID){
 
     $date = $eventToModify['date'];
